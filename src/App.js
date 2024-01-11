@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import PhraseDisplay from './PhraseDisplay';
+import AddPhrase from './AddPhrase';
 
 function App() {
-  const [phrase, setPhrase] = useState("Cliquez pour recevoir de la motivation !");
-  const phrases = [
-    "Le succès est la somme de petits efforts répétés jour après jour.",
-    "Votre limitation, c’est seulement votre imagination.",
-    "Poussez-vous, car personne ne va le faire pour vous.",
-    "Parfois, plus tard devient jamais. Faites-le maintenant.",
-    "Grande chose prennent du temps. Soyez patient."
-  ];
+  const [phrases, setPhrases] = useState(JSON.parse(localStorage.getItem('phrases')) || ["Votre limitation, c’est seulement votre imagination."]);
+  const [currentPhrase, setCurrentPhrase] = useState("");
 
-  const changePhrase = () => {
+  useEffect(() => {
+    localStorage.setItem('phrases', JSON.stringify(phrases));
+  }, [phrases]);
+
+  const addNewPhrase = (newPhrase) => {
+    setPhrases([...phrases, newPhrase]);
+  };
+
+  const showRandomPhrase = () => {
     const randomIndex = Math.floor(Math.random() * phrases.length);
-    setPhrase(phrases[randomIndex]);
+    setCurrentPhrase(phrases[randomIndex]);
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Phrase de Motivation</h1>
-        <p>{phrase}</p>
-        <button onClick={changePhrase}>Nouvelle Phrase</button>
-      </header>
+    <div>
+      <PhraseDisplay phrase={currentPhrase} />
+      <button onClick={showRandomPhrase}>Afficher une Phrase Aléatoire</button>
+      <AddPhrase addNewPhrase={addNewPhrase} />
     </div>
   );
 }
