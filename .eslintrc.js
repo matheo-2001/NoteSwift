@@ -4,8 +4,11 @@ module.exports = {
         "es2021": true
     },
     "extends": [
+        "react-app",
+        "react-app/jest",
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+
     ],
     "overrides": [
         {
@@ -25,8 +28,7 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
     ],
-    "rules": {
-    }
+    "rules": {}
 }

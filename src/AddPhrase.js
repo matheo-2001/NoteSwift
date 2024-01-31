@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+// eslint-disable-next-line react/prop-types
 function AddPhrase({ addNewPhrase }) {
   const [newPhrase, setNewPhrase] = useState("");
 
